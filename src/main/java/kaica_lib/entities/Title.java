@@ -1,6 +1,8 @@
 package kaica_lib.entities;
 
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.ISBN;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,31 +18,59 @@ import java.util.UUID;
 public class Title {
 
     @Id
+    @GeneratedValue
+    @Column(name = "title_id", updatable = false, nullable = false)
+    private Long id;
+
     @Type(type="uuid-char")
     @Column(nullable=false, unique=true)
-    protected UUID uuid = UUID.randomUUID();
+    final private UUID uuid = UUID.randomUUID();
+
+    //todo read up on hibernate ISBN validator
+    //todo placeholder, replace with some kind of ISBN-type?
+    //todo think about ISBN10/13, how to?
+    @NaturalId
+    @Column(name = "ISBN")
+    private String isbn;
 
     @Basic
     @Column(name = "title")
-    public String title;
+    private String title;
 
     @Basic
     @Column(name = "status")
-    public String status;
+    private String status;
 
     //todo placeholder, many-many relationship
     @Basic
     @Column(name = "author")
-    public String author;
+    private String author;
 
     @Temporal(TemporalType.DATE)
     private Date retDate;
 
     //todo: book does not use @temporal, needed?
+    //todo this might not work as intended if the entity is not persisted before it's used? Think!
     @Temporal(TemporalType.DATE)
     private Date createdAt;
 
+    /**
+     * Required Hibernate no-args-constructor.
+     */
+    protected Title() {}
 
+
+    /**
+     * Constructor.
+     *
+     */
+    public Title(String isbn, String title, String status, String author, Date retDate) {
+        this.isbn = isbn;
+        this.title = title;
+        this.status = status;
+        this.author = author;
+        this.retDate = retDate;
+    }
 
     // ********************** Accessor Methods ********************** //
 
