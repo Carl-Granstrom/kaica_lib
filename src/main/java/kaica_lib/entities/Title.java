@@ -34,8 +34,8 @@ public class Title {
     private String isbn;
 
     @Basic
-    @Column(name = "title")
-    private String title;
+    @Column(name = "title_name")
+    private String titleName;
 
     @Basic
     @Column(name = "status")
@@ -58,22 +58,56 @@ public class Title {
     /**
      * Required Hibernate no-args-constructor.
      */
-    protected Title() {}
+    public Title() {}
 
 
     /**
      * Constructor.
-     *
+     * TODO lots of things to consider here, will require extensive refactoring as the logic develops
      */
-    public Title(String isbn, String title, String status, String author, Date retDate) {
+    public Title(String isbn, String titleName, String author) {
         this.isbn = isbn;
-        this.title = title;
-        this.status = status;
+        this.titleName = titleName;
+        this.status = "available";
         this.author = author;
-        this.retDate = retDate;
+        //todo placeholder, add logic
+        Date today = new Date();
+        this.retDate = today;
     }
 
     // ********************** Accessor Methods ********************** //
+
+    public String getIsbn() {
+        return this.isbn;
+    }
+
+    public String getTitleName() {
+        return this.titleName;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public String getAuthor() {
+        return this.author;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setTitleName(String titleName) {
+        this.titleName = titleName;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     // ********************** Model Methods ********************** //
 

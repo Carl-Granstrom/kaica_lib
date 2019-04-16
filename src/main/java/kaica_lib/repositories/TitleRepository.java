@@ -10,7 +10,7 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 
-public interface TitleRepository extends PagingAndSortingRepository<Title, Long> {
+public interface TitleRepository extends JpaRepository<Title, Long> {
 
     /**
      * Searches for the substring in the title field and returns the first 20 hits.
@@ -18,7 +18,7 @@ public interface TitleRepository extends PagingAndSortingRepository<Title, Long>
      * @param name      the substring entered in the searchfield
      * @return          a list of the 20 first hits
      */
-    public List<Title> findFirst20ByNameContaining(String name);
+    public List<Title> findFirst20ByTitleNameContaining(String name);
 
     /**
      * todo READ MORE! DECIDE

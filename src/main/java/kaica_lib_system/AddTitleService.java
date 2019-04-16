@@ -15,9 +15,18 @@ public class AddTitleService {
     private TitleRepository titleRepository;
 
     @Transactional(readOnly=true)
-    public List<Title> findFirst20(String name, int page, int size) {
-
-        return this.titleRepository.findFirst20ByNameContaining(name);
+    public List<Title> findFirst20(String name) {
+        return this.titleRepository.findFirst20ByTitleNameContaining(name);
     }
 
+    @Transactional(readOnly=true)
+    public List<Title> findAll() {
+        return this.titleRepository.findAll();
+    }
+
+    @Transactional
+    public Title saveTitle(Title title) {
+        titleRepository.save(title);
+        return title;
+    }
 }

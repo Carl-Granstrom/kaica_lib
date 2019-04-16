@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html  lang="en"
+       xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Kaica Library</title>
+    </head>
+
+    <body>
+
+        <form method="POST" th:action="@{/add_title}" th:object="${title}">
+            <h1>Please add Title information</h1>
+
+            <a th:href="@{title}" id="another">Add another Title</a><br/>
+
+            <label for="titleName">Title Name: </label>
+            <input type="text" th:field="*{titleName}"/>
+            <br/>
+
+            <label for="isbn">ISBN: </label>
+            <input type="text" th:field="*{isbn}"/>
+            <br/>
+
+            <label for="author">Author: </label>
+            <input type="text" th:field="*{author}"/>
+            <br/>
+
+            <input type="submit" value="Submit"/>
+        </form>
+
+    </body>
+</html>
