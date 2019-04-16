@@ -1,6 +1,6 @@
 package kaica_lib;
 
-import kaica_lib.controllers.HomeController;
+import kaica_lib.web.api.HomeController;
 
 
 

@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 
 @Entity
-@Table(name = "Title")
+@Table(name = "title")
 public class Title {
 
     @Id
@@ -46,6 +46,7 @@ public class Title {
     @Column(name = "author")
     private String author;
 
+    //todo Store somewhere else?
     @Temporal(TemporalType.DATE)
     private Date retDate;
 
