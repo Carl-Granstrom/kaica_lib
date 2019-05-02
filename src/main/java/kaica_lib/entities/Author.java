@@ -3,6 +3,7 @@ package kaica_lib.entities;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -34,10 +35,7 @@ public class Author {
     @Column(name = "nationality")
     private String nationality;
 
-    //todo: book does not use @temporal, needed?
-    //todo this might not work as intended if the entity is not persisted before it's used? Think!
-    @Temporal(TemporalType.DATE)
-    private Date createdAt;
+    private LocalDate createdAt;
 
     // ********************** Accessor Methods ********************** //
 
@@ -45,7 +43,7 @@ public class Author {
 
     @PrePersist
     void createdAt() {
-        this.createdAt = new Date();
+        this.createdAt = LocalDate.now();
     }
 
 

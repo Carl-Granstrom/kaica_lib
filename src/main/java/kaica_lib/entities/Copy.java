@@ -1,27 +1,19 @@
 package kaica_lib.entities;
 
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.ISBN;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * Title class containing title specific information.
- */
-
 @Entity
-@Table(name = "title")
-public class Title {
+@Table(name = "copy")
+public class Copy {
 
     @Id
     @GeneratedValue
-    @Column(name = "title_id", updatable = false, nullable = false)
+    @Column(name = "copy_id", updatable = false, nullable = false)
     private Long id;
 
     @Type(type="uuid-char")
@@ -29,16 +21,24 @@ public class Title {
     final private UUID uuid = UUID.randomUUID();
 
     @Basic
-    @Column(name = "title_name")
-    private String titleName;
+    @Column(name = "status")
+    private String status;
 
-    //todo this might not work as intended if the entity is not persisted before it's used? Think!
+    @OneToOne
+    private Title title;
+
+    //TODO store on loan only?
+    @Column(name = "copy_return_date")
+    private LocalDate retDate;
+
+    @Basic
+    @Column(name = "copy_created_at")
     private LocalDate createdAt;
 
     /**
      * Required Hibernate no-args-constructor.
      */
-    public Title() {}
+    public Copy() {}
 
 
     /**
@@ -46,18 +46,33 @@ public class Title {
      * TODO lots of things to consider here, will require extensive refactoring as the logic develops
      * TODO might not even be used
      */
-    public Title(String titleName) {
-        this.titleName = titleName;
+    public Copy(Title title) {
+        this.title = title;
+        this.status = "available";
+        //todo placeholder, add logic
+        this.retDate = LocalDate.now();
     }
 
     // ********************** Accessor Methods ********************** //
 
-    public String getTitleName() {
-        return this.titleName;
+    public String getStatus() {
+        return this.status;
     }
 
-    public void setTitleName(String titleName) {
-        this.titleName = titleName;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    //TODO think about where retDate logic goes
+    //TODO PLACEHOLDER, PASS TO CopyType-object
+    /**
+     * @return the date that was set to the return date
+     */
+    public LocalDate setRetDate(LocalDate retDate) {
+
+        this.retDate = retDate;
+
+        return retDate;
     }
 
 
@@ -76,11 +91,11 @@ public class Title {
         if(this == obj) {
             return true;
         }
-        if(!(obj instanceof Title)) {
+        if(!(obj instanceof Copy)) {
             return false;
         }
-        Title title = (Title) obj;
-        return uuid != null && uuid.equals(title.uuid);
+        Copy copy = (Copy) obj;
+        return uuid != null && uuid.equals(copy.uuid);
     }
 
     @Override

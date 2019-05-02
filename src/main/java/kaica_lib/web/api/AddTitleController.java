@@ -11,6 +11,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
 @Controller
@@ -40,10 +42,12 @@ public class AddTitleController {
     @PostMapping
     //@ResponseStatus(HttpStatus.CREATED)
     public String postTitle( @ModelAttribute Title title) {
-
+        //TODO Return date logic goes here
+        //title.setRetDate(LocalDate.now().plusMonths(2));
+        //title.setStatus("available");
         titleRepository.save(title);
 
-        return "redirect:/";
+        return "redirect:/add_title";
     }
 
 }
