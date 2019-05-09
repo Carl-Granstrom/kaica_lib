@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html  lang="en"
+       xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Copy</title>
+</head>
+
+<body>
+
+<form method="POST" th:action="@{/add_copy}" th:object="${copy}">
+    <h1>Please add copy information</h1>
+
+    <a th:href="@{copy}" id="another">Add another copy</a><br/>
+
+    <!--
+    INSERT PROPER SEARCH METHOD FOR TITLE
+    <label for="titleName">Title Name: </label>
+    <input type="text" th:field="*{titleName}"/>
+    <br/>
+
+    -->
+    <input type="submit" value="Submit"/>
+</form>
+
+</body>
+</html>

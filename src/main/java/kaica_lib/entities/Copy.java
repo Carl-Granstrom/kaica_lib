@@ -63,6 +63,8 @@ public class Copy {
         this.status = status;
     }
 
+    public void setTitle(Title title) { this.title = title; }
+
     //TODO think about where retDate logic goes
     //TODO PLACEHOLDER, PASS TO CopyType-object
     /**

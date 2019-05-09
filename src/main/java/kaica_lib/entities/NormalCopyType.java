@@ -1,0 +1,21 @@
+package kaica_lib.entities;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("NORMAL")
+public class NormalCopyType extends CopyType {
+
+    /**
+     * Required Hibernate no-args-constructor.
+     */
+    protected NormalCopyType() {}
+
+    protected NormalCopyType(Copy copy) {
+        super.setCopy(copy);
+        //TODO fetch value from DB instead
+        //TODO specs actually specify one month, not 4 weeks
+        super.setLoanTimeInWeeks(4);
+    }
+}

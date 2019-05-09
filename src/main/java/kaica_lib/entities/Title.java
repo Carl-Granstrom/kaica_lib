@@ -28,6 +28,8 @@ public class Title {
     @Column(nullable=false, unique=true)
     final private UUID uuid = UUID.randomUUID();
 
+    //TODO ADD ONETOMANY FOR COPY!
+
     @Basic
     @Column(name = "title_name")
     private String titleName;

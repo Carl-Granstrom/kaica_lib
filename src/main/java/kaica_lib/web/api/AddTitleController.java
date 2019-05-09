@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
-@Controller
+@ControllerAdvice
 @RequestMapping(path = "/add_title")
 @SessionAttributes("title")
 public class AddTitleController {
