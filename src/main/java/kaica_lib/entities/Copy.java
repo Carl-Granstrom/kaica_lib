@@ -12,7 +12,7 @@ import java.util.UUID;
 public class Copy {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "copy_id", updatable = false, nullable = false)
     private Long id;
 

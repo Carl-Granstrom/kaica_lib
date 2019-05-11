@@ -20,7 +20,7 @@ import java.util.UUID;
 public class Title {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "title_id", updatable = false, nullable = false)
     private Long id;
 

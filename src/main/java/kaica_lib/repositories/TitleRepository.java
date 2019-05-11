@@ -8,6 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface TitleRepository extends JpaRepository<Title, Long> {
@@ -18,7 +19,7 @@ public interface TitleRepository extends JpaRepository<Title, Long> {
      * @param name      the substring entered in the searchfield
      * @return          a list of the 20 first hits
      */
-    public List<Title> findFirst20ByTitleNameContaining(String name);
+    public Optional<Title> findFirst20ByTitleNameContaining(String name);
 
     /**
      * todo READ MORE! DECIDE

@@ -7,6 +7,7 @@ import kaica_lib.repositories.TitleRepository;
 import kaica_lib_system.AddTitleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -16,32 +17,33 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 @ControllerAdvice
-@RequestMapping(path = "/add_copy")
-public class AddCopyController {
+@RequestMapping(path = "/search_add")
+public class ExpController {
 
     private CopyRepository copyRepository;
     private TitleRepository titleRepository;
 
     @Autowired
-    public AddCopyController(CopyRepository copyRepository, TitleRepository titleRepository) {
+    public ExpController(CopyRepository copyRepository, TitleRepository titleRepository) {
         this.copyRepository = copyRepository;
         this.titleRepository = titleRepository;
     }
 
-    @GetMapping
-    public String addCopy(Model model) {
-        model.addAttribute("copy", new Copy());
-        //todo here we fill with the search later
-        model.addAttribute("title", new Title());
-
-        return "addCopyForm";
+    @GetMapping("/search_add")
+    public ResponseEntity<Title> titleByTitleName(@PathVariable("titleName") String titleName) {
+        Optional<Title> optTitle = titleRepository.findFirst20ByTitleNameContaining(titleName);
+        if (optTitle.isPresent()) {
+            return new ResponseEntity<>(optTitle.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/all")
     public String showAll(Model model) {
-        model.addAttribute("copies", copyRepository.findAll());
+        model.addAttribute("titles", titleRepository.findAll());
         return "redirect:/";
     }
 
@@ -58,7 +60,7 @@ public class AddCopyController {
         //TODO add the CopyType objects as well
         copyRepository.save(copy);
 
-        return "redirect:/add_copy";
+        return "redirect:/search_add";
     }
 
 }
