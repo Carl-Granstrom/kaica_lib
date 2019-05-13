@@ -16,7 +16,7 @@ public class AddTitleService {
 
     @Transactional(readOnly=true)
     public List<Title> findFirst20(String name) {
-        return this.titleRepository.findFirst20ByTitleNameContaining(name);
+        return this.titleRepository.findFirst20ByNameContaining(name);
     }
 
     @Transactional(readOnly=true)

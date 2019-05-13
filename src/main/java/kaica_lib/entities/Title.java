@@ -1,13 +1,9 @@
 package kaica_lib.entities;
 
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.ISBN;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -32,7 +28,7 @@ public class Title {
 
     @Basic
     @Column(name = "title_name")
-    private String titleName;
+    private String name;
 
     //todo this might not work as intended if the entity is not persisted before it's used? Think!
     private LocalDate createdAt;
@@ -48,19 +44,23 @@ public class Title {
      * TODO lots of things to consider here, will require extensive refactoring as the logic develops
      * TODO might not even be used
      */
-    public Title(String titleName) {
-        this.titleName = titleName;
+    public Title(String name) {
+        this.name = name;
     }
 
     // ********************** Accessor Methods ********************** //
 
-    public String getTitleName() {
-        return this.titleName;
+    public String getName() {
+        return this.name;
     }
 
-    public void setTitleName(String titleName) {
-        this.titleName = titleName;
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public Long getId() { return this.id; }
+
+    public void setId(Long id) { this.id = id; }
 
 
     // ********************** Model Methods ********************** //

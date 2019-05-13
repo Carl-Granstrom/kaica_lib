@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html  lang="en"
+       xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Select title to add copy for</title>
+</head>
+
+<body>
+
+<h3>Select a title</h3>
+
+
+<span th:action="@{/add_selected_copy}" th:each="title : ${titles}">
+  <input
+          type="radio"
+          name="searchType"
+          th:id="${title.id}"
+          th:value="${title.name}"
+          th:checked="${title.id == 'title'}"/>
+
+    <label th:for="${title.id}" th:text="${title.name}"></label>
+ </span>
+
+
+</body>
+</html>

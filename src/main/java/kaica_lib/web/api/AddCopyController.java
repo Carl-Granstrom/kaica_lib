@@ -4,18 +4,11 @@ import kaica_lib.entities.Copy;
 import kaica_lib.entities.Title;
 import kaica_lib.repositories.CopyRepository;
 import kaica_lib.repositories.TitleRepository;
-import kaica_lib_system.AddTitleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 
 @ControllerAdvice
 @RequestMapping(path = "/add_copy")
@@ -30,6 +23,14 @@ public class AddCopyController {
         this.titleRepository = titleRepository;
     }
 
+    @ModelAttribute("title")
+    public Title getTitle() {
+        //TODO replace with proper text search
+        Title title = null;
+
+        return title;
+    }
+
     @GetMapping
     public String addCopy(Model model) {
         model.addAttribute("copy", new Copy());
@@ -37,12 +38,6 @@ public class AddCopyController {
         model.addAttribute("title", new Title());
 
         return "addCopyForm";
-    }
-
-    @GetMapping("/all")
-    public String showAll(Model model) {
-        model.addAttribute("copies", copyRepository.findAll());
-        return "redirect:/";
     }
 
     @PostMapping

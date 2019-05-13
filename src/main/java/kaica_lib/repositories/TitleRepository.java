@@ -1,14 +1,9 @@
 package kaica_lib.repositories;
 
-import kaica_lib.entities.Author;
 import kaica_lib.entities.Title;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.awt.print.Pageable;
 import java.util.List;
-import java.util.Optional;
 
 
 public interface TitleRepository extends JpaRepository<Title, Long> {
@@ -19,7 +14,9 @@ public interface TitleRepository extends JpaRepository<Title, Long> {
      * @param name      the substring entered in the searchfield
      * @return          a list of the 20 first hits
      */
-    public Optional<Title> findFirst20ByTitleNameContaining(String name);
+    public List<Title> findFirst20ByNameContaining(String name);
+
+    public List<Title> findByNameContaining(String name);
 
     /**
      * todo READ MORE! DECIDE

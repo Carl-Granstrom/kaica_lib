@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kaica Library</title>
+</head>
+<body>
+<form method="POST" th:object="${copy}">
+    <h1>Select a title</h1>
+
+    <div th:each="title" : ${}
+
+
+    <input type="submit" value="Search title"/>
+</form>
+</body>
+</html>
