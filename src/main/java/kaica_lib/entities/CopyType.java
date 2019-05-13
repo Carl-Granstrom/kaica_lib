@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * todo right now each Copy has its own CopyType object, which is not good. Should use flyweight pattern here.
+ */
 @Entity
 @Table(name = "title_type")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -49,6 +52,10 @@ public abstract class CopyType {
 
     protected void setLoanTimeInWeeks(int loanTimeInWeeks) {
         this.loanTimeInWeeks = loanTimeInWeeks;
+    }
+
+    public int getLoanTimeInWeeks() {
+        return this.loanTimeInWeeks;
     }
 
     // ********************** Business Methods ********************** //

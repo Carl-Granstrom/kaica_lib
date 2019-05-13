@@ -3,6 +3,7 @@ package kaica_lib.entities;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
@@ -27,6 +28,9 @@ public class Copy {
     @OneToOne
     private Title title;
 
+    @OneToOne
+    private CopyType copyType;
+
     //TODO store on loan only?
     @Column(name = "copy_return_date")
     private LocalDate retDate;
@@ -46,11 +50,23 @@ public class Copy {
      * TODO lots of things to consider here, will require extensive refactoring as the logic develops
      * TODO might not even be used
      */
-    public Copy(Title title) {
+    public Copy(Title title, String type) {
         this.title = title;
         this.status = "available";
         //todo placeholder, add logic
         this.retDate = LocalDate.now();
+        //TODO ugly placeholder logic, refactor
+        if (type.equals("reference")) {
+            this.copyType = new RefCopyType();
+        } else if (type.equals("course")) {
+            this.copyType = new CourseCopyType();
+        } else if (type.equals("normal")) {
+            this.copyType = new NormalCopyType();
+        } else if (type.equals("film")) {
+            this.copyType = new FilmCopyType();
+        } else {
+            throw new InvalidParameterException();
+        }
     }
 
     // ********************** Accessor Methods ********************** //
@@ -64,6 +80,9 @@ public class Copy {
     }
 
     public void setTitle(Title title) { this.title = title; }
+
+    //TODO ask CopyType object for loan time data for that object.
+    public int getLoanTimeInWeeks() {return this.copyType.getLoanTimeInWeeks(); }
 
     //TODO think about where retDate logic goes
     //TODO PLACEHOLDER, PASS TO CopyType-object
