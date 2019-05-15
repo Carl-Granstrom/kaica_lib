@@ -1,13 +1,14 @@
 package kaica_lib.web.api;
 
-import kaica_lib.entities.Title;
-import kaica_lib.entities.TitleSearchFormCommand;
+import kaica_lib.entities.*;
 import kaica_lib.repositories.CopyRepository;
+import kaica_lib.repositories.CopyTypeRepository;
 import kaica_lib.repositories.TitleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class SearchTitleAddCopyController {
 
     private CopyRepository copyRepository;
     private TitleRepository titleRepository;
+    private CopyTypeRepository copyTypeRepository;
 
     @Autowired
     public SearchTitleAddCopyController(CopyRepository copyRepository, TitleRepository titleRepository) {
@@ -56,18 +58,44 @@ public class SearchTitleAddCopyController {
     }
 
     @GetMapping("/display_search_results")
-    public String displaySearchResult(@SessionAttribute List<Title> titles, Model model) {
+    public String displaySearchResult(@SessionAttribute List<Title> titles,
+                                      Model model) {
+
         model.addAttribute("titles", titles);
 
         return "searchResult";
     }
 
-    @GetMapping("/add_selected_copy")
-    public String displayAddCopy(Model model, @ModelAttribute("selected_title") Title selectedTitle) {
-        model.addAttribute("selected_title", selectedTitle);
-        return "/";
+    @PostMapping("/display_search_results")
+    public String selectTitle(@SessionAttribute("selected_title") Title title,
+                              @ModelAttribute("title") Title selectedTitle) {
+
+        title = selectedTitle;
+        return "redirect:/search_add_copy/display_search_results/add_selected";
     }
 
+    @GetMapping("/display_search_results/add_selected")
+    public String displaySelectedTitle(Model model) {
 
+        return "selectedTitle";
+    }
+
+    @PostMapping("/display_search_results/add_selected")
+    public String postCopy(@ModelAttribute("copy") Copy copy, @SessionAttribute("selected_title") Title title,
+                           Model model) {
+
+        copy.setTitle(title);
+        copy.setStatus("available");
+        copy.setRetDate(LocalDate.now());
+
+        //TODO STATIC CREATION
+        CopyType copyType = new NormalCopyType(copy);
+
+        copy.setCopyType(copyType);
+        //TODO add the CopyType objects as well
+        copyRepository.save(copy);
+
+        return "redirect:search_add_copy/display_search_results/add_selected";
+    }
 
 }

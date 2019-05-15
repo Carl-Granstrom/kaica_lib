@@ -10,9 +10,9 @@ public class FilmCopyType extends CopyType {
     /**
      * Required Hibernate no-args-constructor.
      */
-    protected FilmCopyType() {}
+    public FilmCopyType() {}
 
-    protected FilmCopyType(Copy copy) {
+    public FilmCopyType(Copy copy) {
         super.setCopy(copy);
         //TODO fetch value from DB instead
         super.setLoanTimeInWeeks(1);

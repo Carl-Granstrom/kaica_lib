@@ -10,9 +10,9 @@ public class NormalCopyType extends CopyType {
     /**
      * Required Hibernate no-args-constructor.
      */
-    protected NormalCopyType() {}
+    public NormalCopyType() {}
 
-    protected NormalCopyType(Copy copy) {
+    public NormalCopyType(Copy copy) {
         super.setCopy(copy);
         //TODO fetch value from DB instead
         //TODO specs actually specify one month, not 4 weeks

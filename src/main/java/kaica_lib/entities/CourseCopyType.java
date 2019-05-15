@@ -10,9 +10,9 @@ public class CourseCopyType extends CopyType {
     /**
      * Required Hibernate no-args-constructor.
      */
-    protected CourseCopyType() {}
+    public CourseCopyType() {}
 
-    protected CourseCopyType(Copy copy) {
+    public CourseCopyType(Copy copy) {
         super.setCopy(copy);
         //TODO fetch value from DB instead
         super.setLoanTimeInWeeks(2);

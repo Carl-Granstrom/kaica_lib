@@ -1,5 +1,7 @@
 package kaica_lib.entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -25,10 +27,11 @@ public class Copy {
     @Column(name = "status")
     private String status;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
     private Title title;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private CopyType copyType;
 
     //TODO store on loan only?
@@ -80,6 +83,10 @@ public class Copy {
     }
 
     public void setTitle(Title title) { this.title = title; }
+
+    public void setCopyType(CopyType copyType) { this.copyType = copyType; }
+
+    public CopyType getCopyType() { return this.copyType; }
 
     //TODO ask CopyType object for loan time data for that object.
     public int getLoanTimeInWeeks() {return this.copyType.getLoanTimeInWeeks(); }

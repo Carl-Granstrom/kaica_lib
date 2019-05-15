@@ -1,8 +1,11 @@
 package kaica_lib.web.api;
 
 import kaica_lib.entities.Copy;
+import kaica_lib.entities.CopyType;
+import kaica_lib.entities.NormalCopyType;
 import kaica_lib.entities.Title;
 import kaica_lib.repositories.CopyRepository;
+import kaica_lib.repositories.CopyTypeRepository;
 import kaica_lib.repositories.TitleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -16,6 +19,7 @@ public class AddCopyController {
 
     private CopyRepository copyRepository;
     private TitleRepository titleRepository;
+    private CopyTypeRepository copyTypeRepository;
 
     @Autowired
     public AddCopyController(CopyRepository copyRepository, TitleRepository titleRepository) {
@@ -50,6 +54,11 @@ public class AddCopyController {
         copy.setStatus("available");
         //TODO PLACEHOLDER, move out of copy?
         copy.setRetDate(LocalDate.now());
+
+        //TODO STATIC CREATION
+        CopyType copyType = new NormalCopyType(copy);
+
+        copy.setCopyType(copyType);
         //TODO add the CopyType objects as well
         copyRepository.save(copy);
 

@@ -10,7 +10,7 @@ import java.util.UUID;
  * todo right now each Copy has its own CopyType object, which is not good. Should use flyweight pattern here.
  */
 @Entity
-@Table(name = "title_type")
+@Table(name = "copy_type")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type_discriminator")
 public abstract class CopyType {
@@ -24,7 +24,7 @@ public abstract class CopyType {
     @Column(nullable=false, unique=true)
     final private UUID uuid = UUID.randomUUID();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Copy copy;
 
     @Basic

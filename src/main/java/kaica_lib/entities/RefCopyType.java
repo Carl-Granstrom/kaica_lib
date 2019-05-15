@@ -10,9 +10,9 @@ public class RefCopyType extends CopyType {
     /**
      * Required Hibernate no-args-constructor.
      */
-    protected RefCopyType() {}
+    public RefCopyType() {}
 
-    protected RefCopyType(Copy copy) {
+    public RefCopyType(Copy copy) {
         super.setCopy(copy);
         super.setLoanTimeInWeeks(0);
     }

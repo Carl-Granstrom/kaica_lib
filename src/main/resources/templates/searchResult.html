@@ -12,16 +12,18 @@
 <h3>Select a title</h3>
 
 
-<span th:action="@{/add_selected_copy}" th:each="title : ${titles}">
-  <input
-          type="radio"
-          name="searchType"
-          th:id="${title.id}"
-          th:value="${title.name}"
-          th:checked="${title.id == 'title'}"/>
-
-    <label th:for="${title.id}" th:text="${title.name}"></label>
- </span>
+<form th:object="${selectedTitle}" method="POST" th:action="@{/search_add_copy/display_search_results}">
+    <fieldset>
+        <legend>Titles Found</legend>
+        <ul>
+            <li th:each="title : ${titles}">
+                <input type="radio" th:value="${title.name}" />
+                <label th:for="${title.id}" th:text="${title.name}"></label>
+            </li>
+        </ul>
+    </fieldset>
+    <p><input type="submit" value="Select Title" /> <input type="reset" value="Reset" /></p>
+</form>
 
 
 </body>

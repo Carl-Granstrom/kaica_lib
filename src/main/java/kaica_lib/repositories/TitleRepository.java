@@ -2,10 +2,11 @@ package kaica_lib.repositories;
 
 import kaica_lib.entities.Title;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
 public interface TitleRepository extends JpaRepository<Title, Long> {
 
     /**
