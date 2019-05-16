@@ -12,5 +12,17 @@
     <body>
         <h1>Welcome to Kaica Library</h1>
         <img th:src="@{/images/Library.jpg}">
+
+        <form method="GET" th:action="@{/librarian_home/add_title}">
+            <input type="submit" value="Librarian Log In"/>
+        </form>
+
+        <form method="GET" th:action="@{/patron_home}">
+            <input type="submit" value="Patron Log In"/>
+        </form>
+
+
     </body>
+
+
 </html>

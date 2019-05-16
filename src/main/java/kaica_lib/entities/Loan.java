@@ -56,6 +56,10 @@ public class Loan {
 
     public void setId(Long id) { this.id = id; }
 
+    public User getUser() { return this.user; }
+
+    public void setUser(User user) { this.user = user; }
+
     private void setReturnDate(LocalDate returnDate) { this.returnDate = returnDate; }
 
     // ********************** Model Methods ********************** //

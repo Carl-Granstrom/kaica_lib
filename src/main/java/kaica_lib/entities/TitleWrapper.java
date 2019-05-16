@@ -1,5 +1,8 @@
 package kaica_lib.entities;
 
+/**
+ * Does not need to be persisted, wrapper for title objects to be populated in Thymeleaf forms.
+ */
 public class TitleWrapper {
     private Title title;
 

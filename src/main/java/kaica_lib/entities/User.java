@@ -3,6 +3,7 @@ package kaica_lib.entities;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.InvalidObjectException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -57,7 +58,10 @@ public class User {
         this.createdAt = LocalDate.now();
     }
 
-    void makeLoan(Copy copy) {
+    void makeLoan(Copy copy) throws InvalidObjectException {
+        if (copy.getLoanTimeInWeeks() == 0) {
+            throw new InvalidObjectException("Magazines and reference literature can not be loaned");
+        }
         this.loans.add(new Loan(copy, this));
     }
 

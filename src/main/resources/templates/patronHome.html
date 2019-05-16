@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kaica Library</title>
+</head>
+
+
+<body>
+<h1>Welcome to Kaica Library</h1>
+
+<form method="GET" th:action="@{/patron_home/view_my_details}">
+    <input type="submit" value="View User Details"/>
+</form>
+
+<form method="GET" th:action="@{/patron_home/view_loans}">
+    <input type="submit" value="View My Active Loans"/>
+</form>
+
+<form method="GET" th:action="@{/patron_home/view_reservations}">
+    <input disabled="disabled" type="submit" value="View My Reservations"/>
+</form>
+
+<form method="GET" th:action="@{/patron_home/patron_search}">
+    <input type="submit" value="Search Titles"/>
+</form>
+
+<form method="GET" th:action="@{/patron_home/copy_scan}">
+    <input disabled="disabled" type="submit" value="Book Scanner"/>
+</form>
+
+</body>
+
+
+</html>
