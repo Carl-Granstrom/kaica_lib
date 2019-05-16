@@ -2,21 +2,12 @@ package kaica_lib.web.api;
 
 import kaica_lib.entities.Title;
 import kaica_lib.repositories.TitleRepository;
-import kaica_lib_system.AddTitleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-
 @ControllerAdvice
-@RequestMapping(path = "/add_title")
+@RequestMapping(path = "/librarian_home/add_title")
 @SessionAttributes("title")
 public class AddTitleController {
 
@@ -47,7 +38,12 @@ public class AddTitleController {
         //title.setStatus("available");
         titleRepository.save(title);
 
-        return "redirect:/add_title";
+        return "redirect:/librarian_home/add_title";
+    }
+
+    @PostMapping("/redirect")
+    public String redirect() {
+        return "redirect:/search_add_copy";
     }
 
 }

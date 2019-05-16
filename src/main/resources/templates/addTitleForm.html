@@ -9,7 +9,7 @@
 
     <body>
 
-        <form method="POST" th:action="@{/add_title}" th:object="${title}">
+        <form method="POST" th:action="@{/librarian_home/add_title}" th:object="${title}">
             <h1>Please add Title information</h1>
 
             <a th:href="@{title}" id="another">Add another Title</a><br/>
@@ -19,6 +19,10 @@
             <br/>
 
             <input type="submit" value="Submit"/>
+        </form>
+
+        <form method="POST" th:action="@{/librarian_home/add_title/redirect}">
+            <input type="submit" value="Add New Copies"/>
         </form>
 
     </body>
