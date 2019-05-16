@@ -88,20 +88,12 @@ public class Copy {
 
     public CopyType getCopyType() { return this.copyType; }
 
-    //TODO ask CopyType object for loan time data for that object.
-    public int getLoanTimeInWeeks() {return this.copyType.getLoanTimeInWeeks(); }
-
     //TODO think about where retDate logic goes
     //TODO PLACEHOLDER, PASS TO CopyType-object
     /**
      * @return the date that was set to the return date
      */
-    public LocalDate setRetDate(LocalDate retDate) {
-
-        this.retDate = retDate;
-
-        return retDate;
-    }
+    public void setRetDate(LocalDate retDate) { this.retDate = retDate; }
 
 
     // ********************** Model Methods ********************** //
@@ -110,6 +102,9 @@ public class Copy {
     void createdAt() {
         this.createdAt = LocalDate.now();
     }
+
+    //TODO ask CopyType object for loan time data for that object.
+    public int getLoanTimeInWeeks() {return this.copyType.getLoanTimeInWeeks(); }
 
 
     // ********************** Common Methods ********************** //

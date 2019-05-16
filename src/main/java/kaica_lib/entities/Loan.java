@@ -12,8 +12,8 @@ import java.util.UUID;
  */
 
 @Entity
-@Table(name = "title")
-public class Title {
+@Table(name = "loan")
+public class Loan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -24,50 +24,62 @@ public class Title {
     @Column(nullable=false, unique=true)
     final private UUID uuid = UUID.randomUUID();
 
-    @Basic
-    @Column(name = "title_name")
-    private String name;
+    private LocalDate returnDate;
 
     //todo this might not work as intended if the entity is not persisted before it's used? Think!
     private LocalDate createdAt;
 
+    //TODO currently using 1-1 on loan, so each loan is of a single Copy
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
+    private Copy copy;
+
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    private User user;
+
+
     /**
      * Required Hibernate no-args-constructor.
      */
-    public Title() {}
-
+    public Loan() {}
 
     /**
-     * Constructor.
-     * TODO lots of things to consider here, will require extensive refactoring as the logic develops
-     * TODO might not even be used
+     * Required Hibernate no-args-constructor.
      */
-    public Title(String name) {
-        this.name = name;
+    public Loan(Copy copy, User user) {
+        this.copy = copy;
+        this.user = user;
     }
+
 
     // ********************** Accessor Methods ********************** //
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Long getId() { return this.id; }
 
     public void setId(Long id) { this.id = id; }
 
+    private void setReturnDate(LocalDate returnDate) { this.returnDate = returnDate; }
 
     // ********************** Model Methods ********************** //
 
     @PrePersist
     void createdAt() {
+
         this.createdAt = LocalDate.now();
+
+        this.makeLoan();
+
     }
 
+    //Loan->Copy->CopyType-(int)->Copy-(int)->Loan.makeLoan(int)
+    private void makeLoan() {
+
+        int loanTime = copy.getLoanTimeInWeeks();
+
+        LocalDate newReturnDate = LocalDate.now().plusWeeks(loanTime);
+
+        this.setReturnDate(newReturnDate);
+
+    }
 
     // ********************** Common Methods ********************** //
 
@@ -76,11 +88,11 @@ public class Title {
         if(this == obj) {
             return true;
         }
-        if(!(obj instanceof Title)) {
+        if(!(obj instanceof Loan)) {
             return false;
         }
-        Title title = (Title) obj;
-        return uuid != null && uuid.equals(title.uuid);
+        Loan loan = (Loan) obj;
+        return uuid != null && uuid.equals(loan.uuid);
     }
 
     @Override
