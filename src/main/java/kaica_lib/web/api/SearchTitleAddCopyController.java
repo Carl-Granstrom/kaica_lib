@@ -14,12 +14,13 @@ import java.util.List;
 
 @ControllerAdvice
 @RequestMapping(path = "/search_add_copy")
-@SessionAttributes({"search_string", "search_result", "selected_title", "titles"})
+@SessionAttributes({"titles", "sTitle"})
 public class SearchTitleAddCopyController {
 
     private CopyRepository copyRepository;
     private TitleRepository titleRepository;
     private CopyTypeRepository copyTypeRepository;
+    private Long selId;
 
     @Autowired
     public SearchTitleAddCopyController(CopyRepository copyRepository, TitleRepository titleRepository) {
@@ -33,10 +34,21 @@ public class SearchTitleAddCopyController {
         return titles;
     }
 
-    @ModelAttribute(name = "selected_title")
-    public Title getSelectedTitle() {
-        Title title = new Title();
-        return title;
+    @ModelAttribute(name = "sTitle")
+    public TitleWrapper setUpTitle() {
+        return new TitleWrapper();
+    }
+
+    @ModelAttribute(name = "tmpId")
+    public Long getId() {
+        //todo sentinel, placeholder?
+        return 0l;
+    }
+
+    @ModelAttribute(name = "wrapper")
+    public TitleSearchListWrapper getWrapper() {
+        TitleSearchListWrapper wrapper = new TitleSearchListWrapper();
+        return wrapper;
     }
 
     @GetMapping
@@ -52,6 +64,7 @@ public class SearchTitleAddCopyController {
             @ModelAttribute("command") TitleSearchFormCommand command, Model model) {
 
         List<Title> titles = titleRepository.findFirst20ByNameContaining(command.getTitleSearchString());
+
         model.addAttribute("titles", titles);
 
         return "redirect:/search_add_copy/display_search_results";
@@ -67,10 +80,18 @@ public class SearchTitleAddCopyController {
     }
 
     @PostMapping("/display_search_results")
-    public String selectTitle(@SessionAttribute("selected_title") Title title,
-                              @ModelAttribute("title") Title selectedTitle) {
+    public String selectTitle(
+            @ModelAttribute("sTitle") TitleWrapper sTitle,
+            Model model) {
+        System.out.println("in searchResult postmapping: ");
+        System.out.println(sTitle.toString());
 
-        title = selectedTitle;
+        System.out.println(sTitle.getTitle().getId());
+        selId = sTitle.getTitle().getId();
+        Title tmp = titleRepository.getOne(sTitle.getTitle().getId());
+        Long tmpId = tmp.getId();
+        model.addAttribute("tmpTitleId", tmpId);
+
         return "redirect:/search_add_copy/display_search_results/add_selected";
     }
 
@@ -81,10 +102,12 @@ public class SearchTitleAddCopyController {
     }
 
     @PostMapping("/display_search_results/add_selected")
-    public String postCopy(@ModelAttribute("copy") Copy copy, @SessionAttribute("selected_title") Title title,
+    public String postCopy(@ModelAttribute("copy") Copy copy, @ModelAttribute("tmpTitle") Title tmpTitle,
                            Model model) {
 
-        copy.setTitle(title);
+        System.out.println("in add_selected postMapping: ");
+        System.out.println(tmpTitle.getName());
+        copy.setTitle(titleRepository.getOne(selId));
         copy.setStatus("available");
         copy.setRetDate(LocalDate.now());
 
@@ -95,7 +118,14 @@ public class SearchTitleAddCopyController {
         //TODO add the CopyType objects as well
         copyRepository.save(copy);
 
-        return "redirect:search_add_copy/display_search_results/add_selected";
+        return "redirect:/search_add_copy/display_search_results/add_selected";
     }
 
+    public Long getSelId() {
+        return selId;
+    }
+
+    public void setSelId(Long selId) {
+        this.selId = selId;
+    }
 }
