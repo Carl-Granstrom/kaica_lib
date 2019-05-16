@@ -36,7 +36,6 @@ public class Loan {
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     private User user;
 
-
     /**
      * Required Hibernate no-args-constructor.
      */
@@ -61,6 +60,8 @@ public class Loan {
 
     // ********************** Model Methods ********************** //
 
+    //TODO research how @PrePersist reacts on updates.
+    //TODO possibly don't make the loan on persist and change state beforehand so the Loan is ready.
     @PrePersist
     void createdAt() {
 
