@@ -20,6 +20,7 @@ public class SearchTitleAddCopyController {
     private CopyRepository copyRepository;
     private TitleRepository titleRepository;
     private CopyTypeRepository copyTypeRepository;
+    //TODO a bit of a hack, use RedirectAttributes instead
     private Long selId;
 
     @Autowired

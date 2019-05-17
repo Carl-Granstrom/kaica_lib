@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.InvalidObjectException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -26,6 +27,10 @@ public class User {
     @Column(name = "user_name")
     private String name;
 
+    @Basic
+    @Column(name = "user_adress")
+    private String adress;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OrderBy("returnDate DESC")
     private List<Loan> loans;
@@ -36,6 +41,12 @@ public class User {
      * Required Hibernate no-args-constructor.
      */
     public User() {}
+
+    public User(String name, String adress, ArrayList<Loan> loans) {
+        this.name = name;
+        this.adress = adress;
+        this.loans = loans;
+    }
 
     // ********************** Accessor Methods ********************** //
 
@@ -51,7 +62,21 @@ public class User {
 
     public void setId(Long id) { this.id = id; }
 
+    public String getAdress() { return adress; }
+
+    public void setAdress(String adress) { this.adress = adress; }
+
+    public List<Loan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(List<Loan> loans) {
+        this.loans = loans;
+    }
+
     // ********************** Model Methods ********************** //
+
+    public void addLoan(Loan loan) { this.loans.add(loan); }
 
     @PrePersist
     void createdAt() {

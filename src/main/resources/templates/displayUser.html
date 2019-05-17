@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html  lang="en"
+       xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>These are the details we have currently registered on you</title>
+</head>
+
+<body>
+
+<table>
+    <tr>
+        <th>User Id</th>
+        <th>Name</th>
+        <th>Adress</th>
+    </tr>
+
+    <tr th:each="user : ${user}">
+        <td th:text="${user.id}">Onions</td>
+        <td th:text="${user.name}">2.41</td>
+        <td th:text="${user.adress}">yes</td>
+    </tr>
+</table>
+
+
+</body>
+</html>
