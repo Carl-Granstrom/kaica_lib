@@ -27,7 +27,7 @@ public class Copy {
     @Column(name = "status")
     private String status;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
     private Title title;
 
@@ -83,6 +83,8 @@ public class Copy {
     }
 
     public void setTitle(Title title) { this.title = title; }
+
+    public Title getTitle() { return title; }
 
     public void setCopyType(CopyType copyType) { this.copyType = copyType; }
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html  lang="en"
+       xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Change your details</title>
+    <style type="text/css">
+        .fieldset-auto-width {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+<form th:object="${user}" th:method="PUT">
+    <fieldset class="fieldset-auto-width">
+        <p th:text="${user.id}"></p>
+
+        <label for="name">Full Name</label>
+        <input name="name" id="name" th:text="${user.name}">
+
+        <label for="address">Address</label>
+        <input name ="address" id="address" th:text="${user.address}">
+
+        <input type="submit" value="Change details" />
+    </fieldset>
+</form>
+
+
+</body>
+</html>

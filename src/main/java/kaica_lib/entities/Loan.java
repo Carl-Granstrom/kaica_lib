@@ -17,7 +17,7 @@ public class Loan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "title_id", updatable = false, nullable = false)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
     @Type(type="uuid-char")
@@ -55,6 +55,14 @@ public class Loan {
     public Long getId() { return this.id; }
 
     public void setId(Long id) { this.id = id; }
+
+    public Copy getCopy() { return copy; }
+
+    public void setCopy(Copy copy) { this.copy = copy; }
+
+    public LocalDate getCreatedAt() { return createdAt; }
+
+    public LocalDate getReturnDate() { return returnDate; }
 
     public User getUser() { return this.user; }
 

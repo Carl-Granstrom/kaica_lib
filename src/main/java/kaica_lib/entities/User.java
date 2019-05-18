@@ -29,7 +29,7 @@ public class User {
 
     @Basic
     @Column(name = "user_adress")
-    private String adress;
+    private String address;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OrderBy("returnDate DESC")
@@ -44,7 +44,7 @@ public class User {
 
     public User(String name, String adress, ArrayList<Loan> loans) {
         this.name = name;
-        this.adress = adress;
+        this.address = adress;
         this.loans = loans;
     }
 
@@ -62,9 +62,9 @@ public class User {
 
     public void setId(Long id) { this.id = id; }
 
-    public String getAdress() { return adress; }
+    public String getAddress() { return address; }
 
-    public void setAdress(String adress) { this.adress = adress; }
+    public void setAddress(String address) { this.address = address; }
 
     public List<Loan> getLoans() {
         return loans;

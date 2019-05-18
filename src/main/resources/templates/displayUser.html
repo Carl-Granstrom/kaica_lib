@@ -5,6 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <title>These are the details we have currently registered on you</title>
+
+    <style>
+        .gap-10 {
+            width:100%;
+            height:10px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -17,12 +25,17 @@
     </tr>
 
     <tr th:each="user : ${user}">
-        <td th:text="${user.id}">Onions</td>
-        <td th:text="${user.name}">2.41</td>
-        <td th:text="${user.adress}">yes</td>
+        <td th:text="${user.id}">User id</td>
+        <td th:text="${user.name}">User name</td>
+        <td th:text="${user.address}">User address</td>
     </tr>
 </table>
 
+<div class="gap-10"></div>
+
+<form method="PUT" th:action="@{/patron_home/view_my_details/edit_details}">
+    <input type="submit" value="Edit my details"/>
+</form>
 
 </body>
 </html>

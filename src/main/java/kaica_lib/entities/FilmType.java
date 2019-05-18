@@ -1,9 +1,6 @@
 package kaica_lib.entities;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

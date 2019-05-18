@@ -8,10 +8,7 @@ import kaica_lib.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -32,9 +29,12 @@ public class UserDetailsController {
     @GetMapping
     public String displayUser(Model model) {
 
+        //TODO PLACEHOLDER! Right now this is causing a bug that recreates user Sven Svennis again after
+        // details have been changed for him.
         User newUser = new User("Sven Svennis","Svennegatan 2", new ArrayList<Loan>());
         userRepository.save(newUser);
 
+        //TODO this is where we need to fetch the current user instead!
         User user = userRepository.getOne(1l);
 
         model.addAttribute("user", user);
@@ -48,32 +48,32 @@ public class UserDetailsController {
         return "redirect:/patron_home/view_my_details/edit_details";
     }
 
-    @GetMapping(path = "/patron_home/view_my_details/edit_details")
-    public String displayEditForm() {
+    @GetMapping(path = "/edit_details")
+    public String displayEditForm(@ModelAttribute User user) {
 
         return "userDetailsForm";
     }
 
-    /**
-     *
-     
-    private User addTestData() {
-        Title title = new Title("Spring MVC");
-        titleRepository.save(title);
+    @PutMapping(path = "/edit_details")
+    public String editUserDetails(@ModelAttribute("user") User user, Model model) {
 
-        Copy copy = new Copy(title, "normal");
-        copyRepository.save(copy);
+        //TODO this is where we need to fetch the current user instead!
+        User currUser = userRepository.getOne(1l);
 
+        if (!(user.getId() == null)) {
+            currUser.setId(user.getId());
+        }
+        if (!(user.getName() == null)) {
+            currUser.setName(user.getName());
+        }
+        if (!(user.getAddress() == null)) {
+            currUser.setAddress(user.getAddress());
+        }
 
-        User user = new User("Sven Svennis","Svennegatan 2", new ArrayList<Loan>());
+        userRepository.save(currUser);
 
-        Loan loan = new Loan(copy, user);
+        model.addAttribute("user", user);
 
-        user.addLoan(loan);
-
-        userRepository.save(user);
-
-        return user;
+        return "redirect:/patron_home/view_my_details";
     }
-     */
 }

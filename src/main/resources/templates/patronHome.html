@@ -6,27 +6,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Kaica Library</title>
+
+    <style>
+        .gap-10 {
+            width:100%;
+            height:10px;
+        }
+    </style>
 </head>
 
 
 <body>
 <h1>Welcome to Kaica Library</h1>
 
+<div class="gap-10"></div>
+
 <form method="GET" th:action="@{/patron_home/view_my_details}">
     <input type="submit" value="View User Details"/>
 </form>
+
+<div class="gap-10"></div>
 
 <form method="GET" th:action="@{/patron_home/view_loans}">
     <input type="submit" value="View My Active Loans"/>
 </form>
 
+<div class="gap-10"></div>
+
 <form method="GET" th:action="@{/patron_home/view_reservations}">
     <input disabled="disabled" type="submit" value="View My Reservations"/>
 </form>
 
+<div class="gap-10"></div>
+
 <form method="GET" th:action="@{/patron_home/patron_search}">
     <input type="submit" value="Search Titles"/>
 </form>
+
+<div class="gap-10"></div>
 
 <form method="GET" th:action="@{/patron_home/copy_scan}">
     <input disabled="disabled" type="submit" value="Book Scanner"/>

@@ -31,3 +31,15 @@ HELP.md
 
 ### Application Properties ###
 /src/main/resources/application.properties
+/kaica_lib_copy.sql
+/kaica_lib_user.sql
+/kaica_lib_author.sql
+/kaica_lib_loan.sql
+/kaica_lib_copy_type.sql
+/kaica_lib_publisher.sql
+/kaica_lib_title_type.sql
+/kaica_lib_hibernate_sequence.sql
+/kaica_lib_user_loans.sql
+/kaica_lib_actors.sql
+/kaica_lib_title_type_authors.sql
+/kaica_lib_title.sql
