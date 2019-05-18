@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html  lang="en"
+       xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search library titles by name</title>
+</head>
+
+<body>
+
+<form method="POST" th:object="${command}" th:action="@{/patron_home/patron_search}">
+
+    <h1>Please enter your search</h1>
+
+    <p>Enter your search string: <input type="text" th:field="*{titleSearchString}" />
+    </p>
+
+    <input type="submit" value="Submit"/>
+
+</form>
+
+</body>
+</html>

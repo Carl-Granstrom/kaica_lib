@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html  lang="en"
+       xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Select title to add copy for</title>
+</head>
+
+<body>
+
+<h3>Found the following titles matching your query</h3>
+
+<table>
+    <thead>
+    <tr>
+        <th> Title </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${titles.empty}">
+        <td colspan="2"> No Titles match your search </td>
+    </tr>
+    <tr th:each="title : ${titles}">
+        <td><span th:text="${title.name}"> Title </span></td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>
